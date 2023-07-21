@@ -1,0 +1,122 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+   
+	RewriteCond %{HTTP_HOST} ^(www\.)?nanihaal\.com [OR]
+	RewriteCond %{HTTP_HOST} ^(www\.)?a2zpackagingindustries\.com
+	RewriteRule .* - [L]
+
+	RewriteCond %{HTTP_HOST} ^mtp.mytyrepoint.com$ [OR]
+	RewriteCond %{HTTP_HOST} ^www.mtp.mytyrepoint.com$ [OR]
+	RewriteCond %{HTTP_HOST} ^mytyrepoint.in$
+	RewriteCond %{REQUEST_URI} ^/$
+	RewriteRule ^(.*)$ https://www.mytyrepoint.com/ [R=301,L]
+
+	RewriteCond %{HTTP_HOST} ^nanihaal.mytyrepoint.com$ [OR]
+	RewriteCond %{HTTP_HOST} ^www.nanihaal.mytyrepoint.com$ [OR]
+	RewriteCond %{HTTP_HOST} ^nanihaal.com$
+	RewriteCond %{REQUEST_URI} ^/$
+	RewriteRule ^(.*)$ http://www.nanihaal.com/ [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^a2zpackagingindustries.mytyrepoint.com$ [OR]
+	RewriteCond %{HTTP_HOST} ^www.a2zpackagingindustries.mytyrepoint.com$ [OR]
+	RewriteCond %{HTTP_HOST} ^a2zpackagingindustries.com$
+	RewriteCond %{REQUEST_URI} ^/$
+	RewriteRule ^(.*)$ http://www.a2zpackagingindustries.com/ [R=301,L]
+
+	RewriteCond %{HTTP_HOST} !^www\. [NC]
+	RewriteRule ^(.*)$ http://www.mytyrepoint.com/$1 [L,R=301]
+
+	RewriteCond %{HTTPS} off
+	RewriteRule ^(.*)$ https://www.mytyrepoint.com/$1 [L,R=301] 
+
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews +FollowSymLinks
+    </IfModule>
+
+    	
+	RewriteEngine On
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]
+
+
+</IfModule>
+
+<IfModule mod_rewrite.c>
+     RewriteEngine on
+ 
+    RewriteCond %{THE_REQUEST} ^GET.*index\.php [NC]
+RewriteRule (.*?)index\.php/*(.*) /$1$2 [R=301,NE,L]
+</IfModule>
+
+<ifModule mod_gzip.c>
+	mod_gzip_on Yes
+	mod_gzip_dechunk Yes
+	mod_gzip_item_include file .(html?|txt|css|js|php|pl)$
+	mod_gzip_item_include handler ^cgi-script$
+	mod_gzip_item_include mime ^text/.*
+	mod_gzip_item_include mime ^application/x-javascript.*
+	mod_gzip_item_exclude mime ^image/.*
+	mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
+</ifModule>
+
+
+
+## EXPIRES CACHING ##
+<IfModule mod_expires.c>
+	ExpiresActive On
+	ExpiresByType image/jpg "access 1 year"
+	ExpiresByType image/jpeg "access 1 year"
+	ExpiresByType image/gif "access 1 year"
+	ExpiresByType image/png "access 1 year"
+	ExpiresByType text/css "access 1 month"
+	ExpiresByType application/pdf "access 1 month"
+	ExpiresByType application/javascript "access 1 month"
+	ExpiresByType application/x-javascript "access 1 month"
+	ExpiresByType application/x-shockwave-flash "access 1 month"
+	ExpiresByType image/x-icon "access 1 year"
+	ExpiresDefault "access 2 days"
+</IfModule>
+## EXPIRES CACHING ##
+
+
+<IfModule mod_deflate.c>
+  # Compress HTML, CSS, JavaScript, Text, XML and fonts
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+  AddOutputFilterByType DEFLATE application/x-font
+  AddOutputFilterByType DEFLATE application/x-font-opentype
+  AddOutputFilterByType DEFLATE application/x-font-otf
+  AddOutputFilterByType DEFLATE application/x-font-truetype
+  AddOutputFilterByType DEFLATE application/x-font-ttf
+  AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE application/xhtml+xml
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE font/opentype
+  AddOutputFilterByType DEFLATE font/otf
+  AddOutputFilterByType DEFLATE font/ttf
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE image/x-icon
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/xml
+
+  # Remove browser bugs (only needed for really old browsers)
+  BrowserMatch ^Mozilla/4 gzip-only-text/html
+  BrowserMatch ^Mozilla/4\.0[678] no-gzip
+  BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+  Header append Vary User-Agent
+</IfModule>

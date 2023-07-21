@@ -1,0 +1,5 @@
+User-agent: *
+disallow: /index.php/
+disallow: /return-cancellation-policy
+disallow: /tyre-tips-and-advise
+
